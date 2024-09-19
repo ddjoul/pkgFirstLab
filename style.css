@@ -102,6 +102,9 @@ input[type="number"] {
 #rangeInputYELLOW{
     accent-color: yellow;
 }
+#rangeInputKEY{
+    accent-color: #464646;
+}
 #rangeInputX{
     accent-color: white;
 }
