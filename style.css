@@ -27,7 +27,7 @@ p{
 .buttons {
     display: flex;
     justify-content: center;
-    margin-top: -15px;
+    margin-top: 15px;
 }
 .button {
     width: 40px;
