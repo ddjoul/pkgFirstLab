@@ -1,5 +1,3 @@
-const text = document.getElementById('text');
-
 function rgbToHex(RGB) {
   const rgbValues = RGB.match(/\d+/g);
   const [r, g, b] = rgbValues.map(Number);
@@ -71,9 +69,7 @@ function xyzToRGB(XYZ){
       array[index] = (1.055 * Math.pow(value, 1/2.4) - 0.055)*255; 
     }
     else array[index] = value * 12.92*255;
-    if(value > 255 || value < 0){
-      text.style.color = "red";
-    }
+    showToast();
   });
   return `rgb(${Math.round(Math.max(Math.min(array[0], 255), 0)) 
   }, ${Math.round(Math.max(Math.min(array[1], 255), 0))}, ${Math.round(Math.max(Math.min(array[2], 255), 0))})`;
@@ -103,7 +99,6 @@ buttons.forEach(button => {
 });
 
 colorPicker.addEventListener('input', (event) => {
-  text.style.color = "#272424";
   const selectedColor = event.target.value;
   document.body.style.backgroundColor = selectedColor;
   colorPicker.style.backgroundColor = selectedColor;
@@ -114,7 +109,6 @@ colorPicker.addEventListener('input', (event) => {
 
 function updateBackgroundColor(type) {
   var rgb = `rgb(${0}, ${0}, ${0})`;
-  text.style.color = "#272424";
   if (type == 'RGB'){
     const r = document.getElementById(rangesRGB[0]).value;
     const g = document.getElementById(rangesRGB[1]).value;
@@ -180,6 +174,7 @@ function syncrangesRGB(rangeId, valueId) {
   });
 
   numberInput.addEventListener('input', () => {
+    numberInput.value = Math.min(numberInput.value, numberInput.max)
     const value = numberInput.value;
     numberInput.value = value;
     rangeInput.value = value;
@@ -197,6 +192,7 @@ function syncrangesCMYK(rangeId, valueId) {
   });
 
   numberInput.addEventListener('input', () => {
+    numberInput.value = Math.min(numberInput.value, numberInput.max)
     const value = numberInput.value;
     numberInput.value = value;
     rangeInput.value = value;
@@ -214,6 +210,7 @@ function syncrangesXYZ(rangeId, valueId) {
   });
 
   numberInput.addEventListener('input', () => {
+    numberInput.value = Math.min(numberInput.value, numberInput.max)
     const value = numberInput.value;
     numberInput.value = value;
     rangeInput.value = value;
@@ -232,3 +229,17 @@ rangesCMYK.forEach((rangeId, index) => {
 rangesXYZ.forEach((rangeId, index) => {
   syncrangesXYZ(rangeId, numberInputsXYZ[index]);
 });
+
+var toast = document.getElementById("toast");
+
+        // Функция для показа уведомления
+        function showToast() {
+            toast.className = "toast show";
+        }
+
+        // Функция для скрытия уведомления
+        function hideToast() {
+            if (toast.className.includes("show")) {
+                toast.className = toast.className.replace("show", "");
+            }
+        } 
